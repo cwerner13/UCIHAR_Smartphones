@@ -71,7 +71,7 @@ data$activity   = factor(data$activity, labels=activity_labels[,2])
 toMatch         <- c(".*mean\\(\\)", ".*std\\(\\)")
 matches         <- unique(grep(paste(toMatch, collapse="|")
                              , features$V2, value=TRUE))
-sel             <- cbind(data[matches], data[562:563]
+sel             <- cbind(data[,matches], data[,562:563])
 
 ################################################################################### 
 # 5) Creates a second, independent tidy data set 
