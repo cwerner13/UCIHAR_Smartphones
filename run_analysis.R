@@ -1,5 +1,6 @@
 ################################################################################### 
-# Goal: You should create one R script called run_analysis.R that does the following. 
+# Goal: 
+# You should create one R script called run_analysis.R that does the following. 
 # 1) Merges the training and the test sets to create one data set.
 # 2) Extracts only the measurements on the mean and standard deviation for each measurement. 
 # 3) Uses descriptive activity names to name the activities in the data set
@@ -8,6 +9,7 @@
 #
 # Prerequisites: 
 # - The code can be run as long as the Samsung data is in your working directory.
+# 
 # Project Repository
 # - Github "https://github.com/cwerner13/UCIHAR_Smartphones" including
 # - run_analysis.R (= this Pgm)
@@ -69,9 +71,7 @@ data$activity   = factor(data$activity, labels=activity_labels[,2])
 toMatch         <- c(".*mean\\(\\)", ".*std\\(\\)")
 matches         <- unique(grep(paste(toMatch, collapse="|")
                              , features$V2, value=TRUE))
-
-sel             <- cbind(data[matches], data[562:563])
-                     
+sel             <- cbind(data[matches], data[562:563]
 
 ################################################################################### 
 # 5) Creates a second, independent tidy data set 
@@ -82,5 +82,4 @@ require(reshape2)
 molten          <- melt(sel, id= c("subject", "activity"), na.rm = TRUE)
 tidy            <- dcast(molten, subject + activity ~ variable, fun.aggregate = mean)
 
-# Attention: If text contains quotes use  qmethod = "double"" instead of "escape"
 write.table(x = tidy, file = "tidy.txt", sep="\t", quote=FALSE, qmethod = "escape",row.names = FALSE, col.names = TRUE)
